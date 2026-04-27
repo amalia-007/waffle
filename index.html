@@ -518,9 +518,495 @@
     }
 
     /* ─────────────────────────────────────────
-       PLACEHOLDER — future sections mount below
+       SECTION 3 — FIND US
     ───────────────────────────────────────── */
-    /* (sections 3-8 will be inserted here) */
+    #find-us {
+      background-color: var(--deep-brown);
+      background-image:
+        linear-gradient(rgba(200, 134, 10, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 134, 10, 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      padding-block: clamp(5rem, 10vw, 8rem);
+    }
+
+    /* ── Shared section header tokens ── */
+    .sec-label {
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+    }
+    .sec-label--light { color: var(--gold); }
+    .sec-label--dark  { color: var(--warm-brown); }
+
+    .sec-title {
+      font-family: var(--ff-display);
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+    .sec-title--light { color: var(--cream); }
+    .sec-title--dark  { color: var(--deep-brown); }
+
+    .sec-sub {
+      font-family: var(--ff-body);
+      font-style: italic;
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      line-height: 1.65;
+      max-width: 480px;
+    }
+    .sec-sub--light { color: rgba(245, 236, 215, 0.55); }
+    .sec-sub--dark  { color: rgba(44, 26, 14, 0.55); }
+
+    .sec-header { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+
+    /* ── Location cards ── */
+    .loc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: clamp(3rem, 6vw, 4.5rem);
+    }
+
+    .loc-card {
+      position: relative;
+      background: rgba(245, 236, 215, 0.035);
+      border: 1px solid rgba(200, 134, 10, 0.16);
+      border-radius: 14px;
+      padding: 1.75rem 1.75rem 1.5rem;
+      overflow: hidden;
+      transition: border-color 0.25s, background-color 0.25s, transform 0.22s;
+    }
+    .loc-card:hover {
+      border-color: rgba(200, 134, 10, 0.38);
+      background: rgba(245, 236, 215, 0.055);
+      transform: translateY(-2px);
+    }
+    /* Gold top accent line */
+    .loc-card::before {
+      content: '';
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--warm-brown) 0%, var(--gold) 60%, transparent 100%);
+      opacity: 0.55;
+    }
+
+    .loc-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .loc-name {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--cream);
+      line-height: 1.25;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.28em 0.78em;
+      border-radius: 20px;
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge--green  { background: rgba(74,197,120,0.12); border: 1px solid rgba(74,197,120,0.3);  color: #6ee7a0; }
+    .badge--orange { background: rgba(232,93,4,0.12);   border: 1px solid rgba(232,93,4,0.3);    color: #fb923c; }
+    .badge--gold   { background: rgba(200,134,10,0.12); border: 1px solid rgba(200,134,10,0.3);  color: var(--gold); }
+
+    /* ── Animated pulse dot ── */
+    .pulse-dot {
+      position: relative;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #6ee7a0;
+      flex-shrink: 0;
+    }
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background-color: #6ee7a0;
+      opacity: 0.65;
+      animation: pulsering 1.9s ease-out infinite;
+    }
+    @keyframes pulsering {
+      0%   { transform: scale(1);   opacity: 0.65; }
+      80%  { transform: scale(2.7); opacity: 0; }
+      100% { transform: scale(2.7); opacity: 0; }
+    }
+
+    .loc-time {
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .loc-desc {
+      font-family: var(--ff-body);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: rgba(245, 236, 215, 0.45);
+      line-height: 1.55;
+    }
+
+    /* ── Schedule table ── */
+    .schedule-wrap {
+      background: rgba(245, 236, 215, 0.03);
+      border: 1px solid rgba(200, 134, 10, 0.14);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .schedule-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 1.2rem 1.75rem;
+      border-bottom: 1px solid rgba(200, 134, 10, 0.12);
+    }
+    .schedule-header-icon { font-size: 1.1rem; line-height: 1; }
+    .schedule-title {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .schedule-table th {
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(200, 134, 10, 0.65);
+      padding: 0.7rem 1.75rem;
+      text-align: left;
+      background: rgba(245, 236, 215, 0.02);
+      border-bottom: 1px solid rgba(200, 134, 10, 0.1);
+    }
+    .schedule-table td {
+      font-family: var(--ff-ui);
+      font-size: 0.875rem;
+      color: rgba(245, 236, 215, 0.6);
+      padding: 0.78rem 1.75rem;
+      border-bottom: 1px solid rgba(200, 134, 10, 0.07);
+      vertical-align: middle;
+    }
+    .schedule-table tr:last-child td { border-bottom: none; }
+    .schedule-table td:first-child {
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      width: 110px;
+    }
+
+    /* Orange-highlighted rows for Sat & Sun */
+    .schedule-table tr.sched-hl td {
+      background: rgba(232, 93, 4, 0.07);
+      color: rgba(245, 236, 215, 0.88);
+    }
+    .schedule-table tr.sched-hl td:first-child {
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .schedule-table tr.sched-hl:last-child td { border-bottom: none; }
+
+    /* Inline live status pill */
+    .sched-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.66rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.18em 0.55em;
+      border-radius: 10px;
+      margin-left: 0.55rem;
+      background: rgba(74, 197, 120, 0.12);
+      color: #6ee7a0;
+      vertical-align: middle;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION 4 — MENU
+    ───────────────────────────────────────── */
+    #menu {
+      background-color: var(--cream);
+      padding-block: clamp(5rem, 10vw, 8rem);
+    }
+
+    /* ── Builder steps ── */
+    .builder {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .builder-step {
+      background: #fff;
+      border: 1.5px solid rgba(160, 82, 45, 0.13);
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 2px 12px rgba(44, 26, 14, 0.04);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .builder-step:focus-within {
+      border-color: rgba(232, 93, 4, 0.4);
+      box-shadow: 0 2px 16px rgba(232, 93, 4, 0.08);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--deep-brown);
+      color: var(--cream);
+      font-family: var(--ff-ui);
+      font-weight: 700;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+    .step-name {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--deep-brown);
+      letter-spacing: -0.01em;
+    }
+    .step-hint {
+      font-family: var(--ff-ui);
+      font-size: 0.72rem;
+      color: rgba(44, 26, 14, 0.35);
+      letter-spacing: 0.04em;
+      margin-left: auto;
+    }
+
+    /* ── Chips ── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.42em 1.1em;
+      border-radius: 30px;
+      border: 1.5px solid rgba(160, 82, 45, 0.22);
+      background: transparent;
+      color: rgba(44, 26, 14, 0.68);
+      font-family: var(--ff-ui);
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: border-color 0.18s, background-color 0.18s, color 0.18s, transform 0.15s;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .chip:hover {
+      border-color: var(--orange);
+      color: var(--deep-brown);
+      background: rgba(232, 93, 4, 0.06);
+      transform: translateY(-1px);
+    }
+    .chip--selected {
+      border-color: var(--deep-brown);
+      background: var(--deep-brown);
+      color: var(--cream);
+    }
+    .chip--selected:hover {
+      border-color: var(--warm-brown);
+      background: var(--warm-brown);
+      color: var(--cream);
+    }
+
+    /* ── Live preview card ── */
+    .preview-card {
+      background: var(--deep-brown);
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.75rem;
+      min-height: 88px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-card::before {
+      content: '';
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--warm-brown), var(--gold), var(--orange));
+    }
+
+    .preview-top {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .preview-icon { font-size: 1.05rem; line-height: 1; }
+    .preview-label {
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      min-height: 30px;
+      align-items: center;
+    }
+
+    .preview-empty {
+      font-family: var(--ff-body);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: rgba(245, 236, 215, 0.26);
+    }
+
+    .preview-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      font-family: var(--ff-ui);
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+    .preview-tag[data-step="base"]    { background: rgba(200,134,10,0.18); color: #e8b84a; border: 1px solid rgba(200,134,10,0.35); }
+    .preview-tag[data-step="sauce"]   { background: rgba(160,82,45,0.18);  color: #d4895a; border: 1px solid rgba(160,82,45,0.35); }
+    .preview-tag[data-step="topping"] { background: rgba(245,236,215,0.1); color: #e0d2b8; border: 1px solid rgba(245,236,215,0.2); }
+    .preview-tag[data-step="fruit"]   { background: rgba(232,93,4,0.14);   color: #fb923c; border: 1px solid rgba(232,93,4,0.3); }
+    .preview-tag[data-step="extra"]   { background: rgba(74,197,120,0.12); color: #6ee7a0; border: 1px solid rgba(74,197,120,0.28); }
+
+    /* ── Savoury banner ── */
+    .savoury-banner {
+      background: linear-gradient(135deg, #1b3a26 0%, #1f4a2e 100%);
+      border: 1px solid rgba(74, 197, 120, 0.22);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .savoury-banner::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #6ee7a0, #22c55e);
+    }
+
+    .savoury-emoji-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(74, 197, 120, 0.12);
+      border: 1px solid rgba(74, 197, 120, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .savoury-badge {
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #6ee7a0;
+      margin-bottom: 0.3rem;
+    }
+    .savoury-name {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      color: #e8f5ee;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+    }
+    .savoury-desc {
+      font-family: var(--ff-body);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: rgba(232, 245, 238, 0.52);
+      line-height: 1.5;
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — sections 3 & 4
+    ───────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .loc-grid  { grid-template-columns: 1fr; }
+      .savoury-banner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .schedule-table th,
+      .schedule-table td  { padding-inline: 1rem; }
+      .loc-card            { padding: 1.4rem 1.25rem; }
+      .builder-step        { padding: 1.25rem; }
+      .preview-card        { padding: 1.25rem; }
+    }
+
+    /* ─────────────────────────────────────────
+       PLACEHOLDER — sections 5–8 mount below
+    ───────────────────────────────────────── */
+    /* (sections 5-8 will be inserted here) */
 
   </style>
 </head>
@@ -627,7 +1113,251 @@
 
 
   <!-- ═══════════════════════════════════════
-       SECTIONS 3–8 WILL BE ADDED BELOW
+       SECTION 3 · FIND US
+  ══════════════════════════════════════════ -->
+  <section id="find-us" aria-label="Find Us">
+    <div class="container">
+
+      <header class="sec-header">
+        <p class="sec-label sec-label--light">Where to find us</p>
+        <h2 class="sec-title sec-title--light">Find Us</h2>
+        <p class="sec-sub sec-sub--light">We're out in the Goldfields most weekends — here's where to track us down.</p>
+      </header>
+
+      <!-- 2 × 2 location cards -->
+      <div class="loc-grid" role="list">
+
+        <!-- Hannan Street Market -->
+        <div class="loc-card" role="listitem">
+          <div class="loc-card-top">
+            <h3 class="loc-name">Hannan Street Market</h3>
+            <span class="badge badge--green">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              Today
+            </span>
+          </div>
+          <p class="loc-time">📍 Saturday · 8:00 am – 1:00 pm</p>
+          <p class="loc-desc">Kalgoorlie's favourite weekend market. Look for the waffle truck near the main strip.</p>
+        </div>
+
+        <!-- Boulder Markets -->
+        <div class="loc-card" role="listitem">
+          <div class="loc-card-top">
+            <h3 class="loc-name">Boulder Markets</h3>
+            <span class="badge badge--green">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              Today
+            </span>
+          </div>
+          <p class="loc-time">📍 Sunday · 9:00 am – 2:00 pm</p>
+          <p class="loc-desc">Boulder's community market at the heart of town. Fresh off the iron every hour.</p>
+        </div>
+
+        <!-- Mining Camp Visits -->
+        <div class="loc-card" role="listitem">
+          <div class="loc-card-top">
+            <h3 class="loc-name">Mining Camp Visits</h3>
+            <span class="badge badge--orange">By Appointment</span>
+          </div>
+          <p class="loc-time">⛏️ Flexible · We come to you</p>
+          <p class="loc-desc">We travel to mine sites across the Goldfields region. Book ahead to arrange site access.</p>
+        </div>
+
+        <!-- Diggers & Dealers 2026 -->
+        <div class="loc-card" role="listitem">
+          <div class="loc-card-top">
+            <h3 class="loc-name">Diggers &amp; Dealers 2026</h3>
+            <span class="badge badge--gold">⭐ Confirmed</span>
+          </div>
+          <p class="loc-time">🏅 3–5 August 2026 · Kalgoorlie</p>
+          <p class="loc-desc">Australia's premier mining conference. We'll be there all three days — come say g'day.</p>
+        </div>
+
+      </div><!-- /loc-grid -->
+
+      <!-- Weekly schedule -->
+      <div class="schedule-wrap">
+        <div class="schedule-header">
+          <span class="schedule-header-icon" aria-hidden="true">🗓️</span>
+          <h3 class="schedule-title">Weekly Schedule</h3>
+        </div>
+        <table class="schedule-table" aria-label="Weekly trading schedule">
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">Location</th>
+              <th scope="col">Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>—</td>
+              <td>Rest day</td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td>—</td>
+              <td>Prep &amp; baking</td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>Private events (by booking)</td>
+              <td>Flexible</td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>Mining camp visits</td>
+              <td>By appointment</td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td>Pop-ups &amp; private bookings</td>
+              <td>Flexible</td>
+            </tr>
+            <tr class="sched-hl">
+              <td>Saturday</td>
+              <td>
+                Hannan Street Market, Kalgoorlie
+                <span class="sched-pill" aria-label="Trading today">● Live</span>
+              </td>
+              <td>8:00 am – 1:00 pm</td>
+            </tr>
+            <tr class="sched-hl">
+              <td>Sunday</td>
+              <td>
+                Boulder Markets
+                <span class="sched-pill" aria-label="Trading today">● Live</span>
+              </td>
+              <td>9:00 am – 2:00 pm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- /schedule-wrap -->
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 4 · MENU
+  ══════════════════════════════════════════ -->
+  <section id="menu" aria-label="Menu — Build Your Waffle">
+    <div class="container">
+
+      <header class="sec-header">
+        <p class="sec-label sec-label--dark">What we make</p>
+        <h2 class="sec-title sec-title--dark">Build Your Waffle</h2>
+        <p class="sec-sub sec-sub--dark">Like a poké bowl — make it yours. Pick one from each step.</p>
+      </header>
+
+      <!-- Five-step builder -->
+      <div class="builder" id="waffle-builder" role="group" aria-label="Waffle builder">
+
+        <!-- Step 1: Base -->
+        <div class="builder-step">
+          <div class="step-header">
+            <span class="step-num" aria-hidden="true">1</span>
+            <span class="step-name">Base</span>
+            <span class="step-hint">Pick one</span>
+          </div>
+          <div class="chips" data-step="base" role="group" aria-label="Choose your base">
+            <button class="chip" type="button" data-value="Gaufre de Liège">Gaufre de Liège</button>
+            <button class="chip" type="button" data-value="Gaufre de Bruxelles">Gaufre de Bruxelles</button>
+            <button class="chip" type="button" data-value="Galette">Galette</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Sauce -->
+        <div class="builder-step">
+          <div class="step-header">
+            <span class="step-num" aria-hidden="true">2</span>
+            <span class="step-name">Sauce</span>
+            <span class="step-hint">Pick one</span>
+          </div>
+          <div class="chips" data-step="sauce" role="group" aria-label="Choose your sauce">
+            <button class="chip" type="button" data-value="Belgian Chocolate">Belgian Chocolate</button>
+            <button class="chip" type="button" data-value="Nutella">Nutella</button>
+            <button class="chip" type="button" data-value="Salted Caramel">Salted Caramel</button>
+            <button class="chip" type="button" data-value="Speculoos">Speculoos</button>
+            <button class="chip" type="button" data-value="Maple Syrup">Maple Syrup</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Topping -->
+        <div class="builder-step">
+          <div class="step-header">
+            <span class="step-num" aria-hidden="true">3</span>
+            <span class="step-name">Topping</span>
+            <span class="step-hint">Pick one</span>
+          </div>
+          <div class="chips" data-step="topping" role="group" aria-label="Choose your topping">
+            <button class="chip" type="button" data-value="Whipped Cream">Whipped Cream</button>
+            <button class="chip" type="button" data-value="Praline">Praline</button>
+            <button class="chip" type="button" data-value="Speculoos Crumble">Speculoos Crumble</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Fruit -->
+        <div class="builder-step">
+          <div class="step-header">
+            <span class="step-num" aria-hidden="true">4</span>
+            <span class="step-name">Fruit</span>
+            <span class="step-hint">Pick one</span>
+          </div>
+          <div class="chips" data-step="fruit" role="group" aria-label="Choose your fruit">
+            <button class="chip" type="button" data-value="Strawberries">Strawberries</button>
+            <button class="chip" type="button" data-value="Banana">Banana</button>
+            <button class="chip" type="button" data-value="Mango">Mango</button>
+            <button class="chip" type="button" data-value="Blueberries">Blueberries</button>
+            <button class="chip" type="button" data-value="Raspberries">Raspberries</button>
+            <button class="chip" type="button" data-value="Peach">Peach</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Extra -->
+        <div class="builder-step">
+          <div class="step-header">
+            <span class="step-num" aria-hidden="true">5</span>
+            <span class="step-name">Extra</span>
+            <span class="step-hint">Optional — pick one</span>
+          </div>
+          <div class="chips" data-step="extra" role="group" aria-label="Choose an extra">
+            <button class="chip" type="button" data-value="Extra Sauce">Extra Sauce</button>
+            <button class="chip" type="button" data-value="Extra Fruit">Extra Fruit</button>
+            <button class="chip" type="button" data-value="Extra Whipped Cream">Extra Whipped Cream</button>
+          </div>
+        </div>
+
+      </div><!-- /builder -->
+
+      <!-- Live preview -->
+      <div class="preview-card" aria-live="polite" aria-atomic="true" aria-label="Your waffle composition">
+        <div class="preview-top">
+          <span class="preview-icon" aria-hidden="true">🧇</span>
+          <span class="preview-label">Your Composition</span>
+        </div>
+        <div class="preview-tags" id="preview-tags">
+          <span class="preview-empty">Start picking above to build your waffle…</span>
+        </div>
+      </div>
+
+      <!-- Savoury special -->
+      <div class="savoury-banner" role="complementary" aria-label="Savoury special">
+        <div class="savoury-emoji-wrap" aria-hidden="true">🥑</div>
+        <div>
+          <p class="savoury-badge">Savoury Special</p>
+          <h3 class="savoury-name">Avocado Toast Waffle</h3>
+          <p class="savoury-desc">Brussels waffle · smashed avo · poached egg · feta · sesame</p>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTIONS 5–8 WILL BE ADDED BELOW
   ══════════════════════════════════════════ -->
 
 
@@ -679,6 +1409,56 @@
       /* Close drawer on resize past mobile breakpoint */
       const mq = window.matchMedia('(min-width: 769px)');
       mq.addEventListener('change', e => { if (e.matches) closeDrawer(); });
+
+      /* ── Waffle builder — chip selection ── */
+      const builderState = { base: null, sauce: null, topping: null, fruit: null, extra: null };
+      const STEP_ICONS   = { base: '🧇', sauce: '🍫', topping: '🍦', fruit: '🍓', extra: '✨' };
+      const STEP_ORDER   = ['base', 'sauce', 'topping', 'fruit', 'extra'];
+
+      document.querySelectorAll('.chips[data-step]').forEach(group => {
+        const step = group.dataset.step;
+        group.querySelectorAll('.chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            const alreadySelected = chip.classList.contains('chip--selected');
+
+            /* Clear all chips in this step */
+            group.querySelectorAll('.chip').forEach(c => {
+              c.classList.remove('chip--selected');
+              c.setAttribute('aria-pressed', 'false');
+            });
+
+            if (!alreadySelected) {
+              chip.classList.add('chip--selected');
+              chip.setAttribute('aria-pressed', 'true');
+              builderState[step] = chip.dataset.value;
+            } else {
+              /* Second click deselects */
+              builderState[step] = null;
+            }
+
+            renderPreview();
+          });
+
+          /* Accessibility: mark initial state */
+          chip.setAttribute('aria-pressed', 'false');
+        });
+      });
+
+      function renderPreview() {
+        const container = document.getElementById('preview-tags');
+        const filled = STEP_ORDER.filter(s => builderState[s] !== null);
+
+        if (filled.length === 0) {
+          container.innerHTML = '<span class="preview-empty">Start picking above to build your waffle…</span>';
+          return;
+        }
+
+        container.innerHTML = filled.map(step =>
+          `<span class="preview-tag" data-step="${step}">`
+          + `${STEP_ICONS[step]} ${builderState[step]}`
+          + `</span>`
+        ).join('');
+      }
 
       /* ── Subtle nav background intensify on scroll ── */
       const nav = document.getElementById('site-nav');
