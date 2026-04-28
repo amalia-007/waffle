@@ -2431,8 +2431,8 @@
               headers: { 'Accept': 'application/json' }
             });
             if (response.ok) {
-              const formContent = document.getElementById('formContent');
-              const successMsg = document.getElementById('successMsg');
+              const formContent = document.getElementById('booking-form');
+              const successMsg = document.getElementById('booking-success');
               if (formContent) formContent.style.display = 'none';
               if (successMsg) {
                 successMsg.style.display = 'block';
