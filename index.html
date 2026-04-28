@@ -2405,24 +2405,35 @@
       const bookingForm    = document.getElementById('booking-form');
       const bookingSuccess = document.getElementById('booking-success');
 
+      console.log('[Booking] form element:', bookingForm);
+      console.log('[Booking] success element:', bookingSuccess);
+
       if (bookingForm && bookingSuccess) {
         bookingForm.addEventListener('submit', async e => {
           e.preventDefault();
+          console.log('[Booking] submit intercepted');
           const data = new FormData(bookingForm);
+          console.log('[Booking] FormData entries:', [...data.entries()]);
           try {
+            console.log('[Booking] sending fetch POST to Formspree…');
             const response = await fetch('https://formspree.io/f/xkokdbdw', {
               method: 'POST',
               body: data,
               headers: { 'Accept': 'application/json' }
             });
+            console.log('[Booking] response status:', response.status, response.ok);
+            const json = await response.json().catch(() => null);
+            console.log('[Booking] response body:', json);
             if (response.ok) {
               bookingForm.style.display = 'none';
               bookingSuccess.style.display = 'flex';
               bookingSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } else {
+              console.error('[Booking] Formspree error:', json);
               alert('Something went wrong. Please try again or contact us directly.');
             }
-          } catch {
+          } catch (err) {
+            console.error('[Booking] fetch failed:', err);
             alert('Something went wrong. Please try again or contact us directly.');
           }
         });
