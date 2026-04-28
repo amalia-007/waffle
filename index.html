@@ -1832,7 +1832,8 @@
             <button class="chip" type="button" data-value="Whipped Cream">Whipped Cream</button>
             <button class="chip" type="button" data-value="Praline">Praline</button>
             <button class="chip" type="button" data-value="Speculoos Crumble">Speculoos Crumble</button>
-            <button class="chip" type="button" data-value="Peanut Sugar">Peanut Sugar</button>
+            <button class="chip" type="button" data-value="Peanut">Peanut</button>
+            <button class="chip" type="button" data-value="Sugar">Sugar</button>
           </div>
         </div>
 
@@ -1946,7 +1947,7 @@
 
         <!-- Right: enquiry form -->
         <div class="booking-form-wrap">
-          <form id="booking-form" novalidate>
+          <form id="booking-form" action="https://formspree.io/f/xkokdbdw" method="POST" novalidate>
             <div class="form-grid">
 
               <div class="form-group">
@@ -1990,7 +1991,7 @@
 
               <div class="form-group">
                 <label class="form-label" for="f-date">Event Date</label>
-                <input class="form-input" id="f-date" name="event_date" type="date">
+                <input class="form-input" id="f-date" name="date" type="date">
               </div>
 
               <div class="form-group">
@@ -2170,24 +2171,6 @@
           </div>
         </div>
 
-        <!-- James T -->
-        <div class="review-card">
-          <span class="review-quote-mark" aria-hidden="true">"</span>
-          <div class="review-stars" aria-label="5 out of 5 stars">
-            <span class="review-star">★</span><span class="review-star">★</span>
-            <span class="review-star">★</span><span class="review-star">★</span>
-            <span class="review-star">★</span>
-          </div>
-          <p class="review-text">"Used Belgian Waffles for our Diggers &amp; Dealers networking dinner and the reaction from guests was something else. It completely elevated the event — a genuinely premium experience for any corporate function."</p>
-          <div class="review-footer">
-            <div class="review-avatar" aria-hidden="true">🤵</div>
-            <div>
-              <p class="review-name">James T.</p>
-              <p class="review-role">Mining Executive, Kalgoorlie</p>
-            </div>
-          </div>
-        </div>
-
         <!-- Priya K -->
         <div class="review-card">
           <span class="review-quote-mark" aria-hidden="true">"</span>
@@ -2209,7 +2192,7 @@
       </div><!-- /reviews-grid -->
 
       <div class="reviews-cta">
-        <a class="btn-outline-dark" href="#" aria-label="Leave a review for Belgian Waffles">
+        <a class="btn-outline-dark" href="#" aria-label="Leave a review for Belgian Waffles" onclick="window.open('https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID', '_blank'); return false;">
           ★&ensp;Leave a Review
         </a>
       </div>
