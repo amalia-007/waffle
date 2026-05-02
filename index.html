@@ -1658,48 +1658,8 @@
         <p class="sec-sub sec-sub--light">We're out in the Goldfields most weekends — here's where to track us down.</p>
       </header>
 
-      <!-- 2 × 2 location cards -->
-      <div class="loc-grid" role="list">
-
-        <!-- Hannan Street Market -->
-        <div class="loc-card" role="listitem">
-          <div class="loc-card-top">
-            <h3 class="loc-name">Hannan Street Market</h3>
-          </div>
-          <p class="loc-time">📍 Saturday · 8:00 am – 1:00 pm</p>
-          <p class="loc-desc">Kalgoorlie's favourite weekend market. Look for the waffle truck near the main strip.</p>
-        </div>
-
-        <!-- Boulder Markets -->
-        <div class="loc-card" role="listitem">
-          <div class="loc-card-top">
-            <h3 class="loc-name">Boulder Markets</h3>
-          </div>
-          <p class="loc-time">📍 Sunday · 9:00 am – 2:00 pm</p>
-          <p class="loc-desc">Boulder's community market at the heart of town. Fresh off the iron every hour.</p>
-        </div>
-
-        <!-- Mining Camp Visits -->
-        <div class="loc-card" role="listitem">
-          <div class="loc-card-top">
-            <h3 class="loc-name">Mining Camp Visits</h3>
-            <span class="badge badge--orange">By Appointment</span>
-          </div>
-          <p class="loc-time">⛏️ Monday to Friday · 5:30 am – 7:00 am and 4:00 pm – 5:00 pm</p>
-          <p class="loc-desc">We visit mine sites across the Goldfields region on weekdays. Fixed daily service — no booking required for regular camp stops.</p>
-        </div>
-
-        <!-- Diggers & Dealers 2026 -->
-        <div class="loc-card" role="listitem">
-          <div class="loc-card-top">
-            <h3 class="loc-name">Diggers &amp; Dealers 2026</h3>
-            <span class="badge badge--gold">⭐ Confirmed</span>
-          </div>
-          <p class="loc-time">🏅 3–5 August 2026 · Kalgoorlie</p>
-          <p class="loc-desc">Australia's premier mining conference. We'll be there all three days — come say g'day.</p>
-        </div>
-
-      </div><!-- /loc-grid -->
+      <!-- 2 × 2 location cards — rendered from _data/schedule.json -->
+      <div class="loc-grid" id="loc-grid" role="list"></div>
 
 
     </div><!-- /container -->
@@ -1728,11 +1688,7 @@
             <span class="step-name">Base</span>
             <span class="step-hint">Pick one</span>
           </div>
-          <div class="chips" data-step="base" role="group" aria-label="Choose your base">
-            <button class="chip" type="button" data-value="Liège Waffle">Liège Waffle</button>
-            <button class="chip" type="button" data-value="Brussels Waffle">Brussels Waffle</button>
-            <button class="chip" type="button" data-value="Galette (Thin Crepe)">Galette (Thin Crepe)</button>
-          </div>
+          <div class="chips" data-step="base" role="group" aria-label="Choose your base"></div>
         </div>
 
         <!-- Step 2: Sauce -->
@@ -1742,16 +1698,7 @@
             <span class="step-name">Sauce</span>
             <span class="step-hint">Pick one</span>
           </div>
-          <div class="chips" data-step="sauce" role="group" aria-label="Choose your sauce">
-            <button class="chip" type="button" data-value="Belgian Chocolate">Belgian Chocolate</button>
-            <button class="chip" type="button" data-value="Nutella">Nutella</button>
-            <button class="chip" type="button" data-value="Salted Caramel">Salted Caramel</button>
-            <button class="chip" type="button" data-value="Speculoos">Speculoos</button>
-            <button class="chip" type="button" data-value="Maple Syrup">Maple Syrup</button>
-            <button class="chip" type="button" data-value="Peanut Butter">Peanut Butter</button>
-            <button class="chip" type="button" data-value="Strawberry Jam">Strawberry Jam</button>
-            <button class="chip" type="button" data-value="Honey">Honey</button>
-          </div>
+          <div class="chips" data-step="sauce" role="group" aria-label="Choose your sauce"></div>
         </div>
 
         <!-- Step 3: Topping -->
@@ -1761,14 +1708,7 @@
             <span class="step-name">Topping</span>
             <span class="step-hint">Pick one</span>
           </div>
-          <div class="chips" data-step="topping" role="group" aria-label="Choose your topping">
-            <button class="chip" type="button" data-value="Whipped Cream">Whipped Cream</button>
-            <button class="chip" type="button" data-value="Praline">Praline</button>
-            <button class="chip" type="button" data-value="Speculoos Crumble">Speculoos Crumble</button>
-            <button class="chip" type="button" data-value="Peanut">Peanut</button>
-            <button class="chip" type="button" data-value="Sugar">Sugar</button>
-            <button class="chip" type="button" data-value="Cinnamon Sugar">Cinnamon Sugar</button>
-          </div>
+          <div class="chips" data-step="topping" role="group" aria-label="Choose your topping"></div>
         </div>
 
         <!-- Step 4: Fruit -->
@@ -1778,14 +1718,7 @@
             <span class="step-name">Fruit</span>
             <span class="step-hint">Pick one</span>
           </div>
-          <div class="chips" data-step="fruit" role="group" aria-label="Choose your fruit">
-            <button class="chip" type="button" data-value="Strawberries">Strawberries</button>
-            <button class="chip" type="button" data-value="Banana">Banana</button>
-            <button class="chip" type="button" data-value="Mango">Mango</button>
-            <button class="chip" type="button" data-value="Blueberries">Blueberries</button>
-            <button class="chip" type="button" data-value="Raspberries">Raspberries</button>
-            <button class="chip" type="button" data-value="Peach">Peach</button>
-          </div>
+          <div class="chips" data-step="fruit" role="group" aria-label="Choose your fruit"></div>
         </div>
 
         <!-- Step 5: Extra -->
@@ -1795,11 +1728,7 @@
             <span class="step-name">Extra</span>
             <span class="step-hint">Optional — pick one</span>
           </div>
-          <div class="chips" data-step="extra" role="group" aria-label="Choose an extra">
-            <button class="chip" type="button" data-value="Extra Sauce">Extra Sauce</button>
-            <button class="chip" type="button" data-value="Extra Fruit">Extra Fruit</button>
-            <button class="chip" type="button" data-value="Extra Whipped Cream">Extra Whipped Cream</button>
-          </div>
+          <div class="chips" data-step="extra" role="group" aria-label="Choose an extra"></div>
         </div>
 
       </div><!-- /builder -->
@@ -2048,7 +1977,7 @@
         <span class="insta-icon" aria-hidden="true">📸</span>
         <p class="insta-text">
           Share your waffle moment and tag us on Instagram —
-          <span class="insta-handle">@BelgianWafflesKal</span>
+          <span class="insta-handle" id="insta-handle">@BelgianWafflesKal</span>
         </p>
       </div>
 
@@ -2268,39 +2197,41 @@
       const mq = window.matchMedia('(min-width: 769px)');
       mq.addEventListener('change', e => { if (e.matches) closeDrawer(); });
 
-      /* ── Waffle builder — chip selection ── */
+      /* ── Waffle builder — state & preview ── */
       const builderState = { base: null, sauce: null, topping: null, fruit: null, extra: null };
       const STEP_ICONS   = { base: '🧇', sauce: '🍫', topping: '🍦', fruit: '🍓', extra: '✨' };
       const STEP_ORDER   = ['base', 'sauce', 'topping', 'fruit', 'extra'];
 
-      document.querySelectorAll('.chips[data-step]').forEach(group => {
-        const step = group.dataset.step;
-        group.querySelectorAll('.chip').forEach(chip => {
-          chip.addEventListener('click', () => {
-            const alreadySelected = chip.classList.contains('chip--selected');
+      function initChips() {
+        document.querySelectorAll('.chips[data-step]').forEach(group => {
+          const step = group.dataset.step;
+          group.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+              const alreadySelected = chip.classList.contains('chip--selected');
 
-            /* Clear all chips in this step */
-            group.querySelectorAll('.chip').forEach(c => {
-              c.classList.remove('chip--selected');
-              c.setAttribute('aria-pressed', 'false');
+              /* Clear all chips in this step */
+              group.querySelectorAll('.chip').forEach(c => {
+                c.classList.remove('chip--selected');
+                c.setAttribute('aria-pressed', 'false');
+              });
+
+              if (!alreadySelected) {
+                chip.classList.add('chip--selected');
+                chip.setAttribute('aria-pressed', 'true');
+                builderState[step] = chip.dataset.value;
+              } else {
+                /* Second click deselects */
+                builderState[step] = null;
+              }
+
+              renderPreview();
             });
 
-            if (!alreadySelected) {
-              chip.classList.add('chip--selected');
-              chip.setAttribute('aria-pressed', 'true');
-              builderState[step] = chip.dataset.value;
-            } else {
-              /* Second click deselects */
-              builderState[step] = null;
-            }
-
-            renderPreview();
+            /* Accessibility: mark initial state */
+            chip.setAttribute('aria-pressed', 'false');
           });
-
-          /* Accessibility: mark initial state */
-          chip.setAttribute('aria-pressed', 'false');
         });
-      });
+      }
 
       function renderPreview() {
         const container = document.getElementById('preview-tags');
@@ -2317,6 +2248,97 @@
           + `</span>`
         ).join('');
       }
+
+      /* ── CMS data — defaults mirror current content ── */
+      const DEFAULT_SCHEDULE = {
+        locations: [
+          { name: 'Hannan Street Market', icon: '📍', day: 'Saturday', hours: '8:00 am – 1:00 pm', description: 'Kalgoorlie’s favourite weekend market. Look for the waffle truck near the main strip.', badge: '', badge_text: '' },
+          { name: 'Boulder Markets', icon: '📍', day: 'Sunday', hours: '9:00 am – 2:00 pm', description: 'Boulder’s community market at the heart of town. Fresh off the iron every hour.', badge: '', badge_text: '' },
+          { name: 'Mining Camp Visits', icon: '⛏️', day: 'Monday to Friday', hours: '5:30 am – 7:00 am and 4:00 pm – 5:00 pm', description: 'We visit mine sites across the Goldfields region on weekdays. Fixed daily service — no booking required for regular camp stops.', badge: 'orange', badge_text: 'By Appointment' },
+          { name: 'Diggers & Dealers 2026', icon: '🏅', day: '3–5 August 2026', hours: 'Kalgoorlie', description: 'Australia’s premier mining conference. We’ll be there all three days — come say g’day.', badge: 'gold', badge_text: '⭐ Confirmed' }
+        ]
+      };
+
+      const DEFAULT_MENU = {
+        base:    [{ name: 'Liège Waffle' }, { name: 'Brussels Waffle' }, { name: 'Galette (Thin Crepe)' }],
+        sauce:   [{ name: 'Belgian Chocolate' }, { name: 'Nutella' }, { name: 'Salted Caramel' }, { name: 'Speculoos' }, { name: 'Maple Syrup' }, { name: 'Peanut Butter' }, { name: 'Strawberry Jam' }, { name: 'Honey' }],
+        topping: [{ name: 'Whipped Cream' }, { name: 'Praline' }, { name: 'Speculoos Crumble' }, { name: 'Peanut' }, { name: 'Sugar' }, { name: 'Cinnamon Sugar' }],
+        fruit:   [{ name: 'Strawberries' }, { name: 'Banana' }, { name: 'Mango' }, { name: 'Blueberries' }, { name: 'Raspberries' }, { name: 'Peach' }],
+        extra:   [{ name: 'Extra Sauce' }, { name: 'Extra Fruit' }, { name: 'Extra Whipped Cream' }]
+      };
+
+      const DEFAULT_SETTINGS = {
+        site_title: 'Belgian Waffles',
+        tagline: 'From the heart of Belgium, straight to the Goldfields.',
+        instagram_handle: '@BelgianWafflesKal',
+        phone: '',
+        email: ''
+      };
+
+      function renderSchedule(data) {
+        const grid = document.getElementById('loc-grid');
+        if (!grid || !data.locations) return;
+        grid.innerHTML = data.locations.map(loc => {
+          const badgeHtml = loc.badge === 'orange'
+            ? `<span class="badge badge--orange">${loc.badge_text}</span>`
+            : loc.badge === 'gold'
+            ? `<span class="badge badge--gold">${loc.badge_text}</span>`
+            : loc.badge === 'green'
+            ? `<span class="badge badge--green"><span class="pulse-dot" aria-hidden="true"></span>${loc.badge_text}</span>`
+            : '';
+          return `<div class="loc-card" role="listitem">
+  <div class="loc-card-top">
+    <h3 class="loc-name">${loc.name}</h3>${badgeHtml ? '\n    ' + badgeHtml : ''}
+  </div>
+  <p class="loc-time">${loc.icon} ${loc.day} · ${loc.hours}</p>
+  <p class="loc-desc">${loc.description}</p>
+</div>`;
+        }).join('\n');
+      }
+
+      function renderMenu(data) {
+        STEP_ORDER.forEach(step => {
+          const container = document.querySelector(`.chips[data-step="${step}"]`);
+          if (!container || !data[step]) return;
+          container.innerHTML = data[step].map(item => {
+            const val = typeof item === 'string' ? item : item.name;
+            return `<button class="chip" type="button" data-value="${val}">${val}</button>`;
+          }).join('\n');
+        });
+      }
+
+      function applySettings(data) {
+        const handle = document.getElementById('insta-handle');
+        if (handle && data.instagram_handle) handle.textContent = data.instagram_handle;
+      }
+
+      async function loadCMSData() {
+        try {
+          const [schRes, menuRes, setRes] = await Promise.all([
+            fetch('/_data/schedule.json'),
+            fetch('/_data/menu.json'),
+            fetch('/_data/settings.json')
+          ]);
+          if (schRes.ok) renderSchedule(await schRes.json());
+          if (menuRes.ok) {
+            renderMenu(await menuRes.json());
+            /* Re-init chips after fresh render */
+            STEP_ORDER.forEach(k => { builderState[k] = null; });
+            initChips();
+            renderPreview();
+          }
+          if (setRes.ok) applySettings(await setRes.json());
+        } catch (_) {
+          /* Defaults already rendered — silent fallback */
+        }
+      }
+
+      /* Render defaults instantly (no flash), then overlay live CMS data */
+      renderSchedule(DEFAULT_SCHEDULE);
+      renderMenu(DEFAULT_MENU);
+      initChips();
+      applySettings(DEFAULT_SETTINGS);
+      loadCMSData();
 
       /* ── Event type cards → sync to form select ── */
       const eventCards    = document.querySelectorAll('.event-card[data-type]');

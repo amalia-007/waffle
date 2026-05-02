@@ -1,0 +1,102 @@
+# Decap CMS configuration for Belgian Waffles
+#
+# GitHub OAuth setup (one-time):
+#   1. Go to GitHub → Settings → Developer settings → OAuth Apps → New OAuth App
+#   2. Homepage URL: your Vercel deployment URL (e.g. https://your-site.vercel.app)
+#   3. Authorization callback URL: https://api.netlify.com/auth/done
+#   4. Go to netlify.com → create a free site → Site settings → Access control → OAuth
+#   5. Add GitHub provider with the Client ID and Client Secret from step 1–3
+#   6. The CMS will then authenticate via Netlify's OAuth proxy
+
+backend:
+  name: github
+  repo: amalia-007/waffle
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+media_folder: images/uploads
+public_folder: /images/uploads
+
+collections:
+
+  # ── Location cards (Find Us section) ──────────────────────────────────────
+  - name: schedule
+    label: Schedule & Locations
+    files:
+      - name: schedule
+        label: Location Cards
+        file: _data/schedule.json
+        format: json
+        fields:
+          - name: locations
+            label: Locations
+            label_singular: Location
+            widget: list
+            fields:
+              - { name: name,        label: Name,            widget: string }
+              - { name: icon,        label: Icon Emoji,      widget: string,  default: "📍" }
+              - { name: day,         label: Day / Date,      widget: string }
+              - { name: hours,       label: Hours,           widget: string }
+              - { name: description, label: Description,     widget: text }
+              - name: badge
+                label: Badge Type
+                widget: select
+                required: false
+                default: ""
+                options:
+                  - { label: "None",                    value: "" }
+                  - { label: "Orange — By Appointment", value: orange }
+                  - { label: "Gold — Confirmed",        value: gold }
+                  - { label: "Green — Live / Today",    value: green }
+              - { name: badge_text, label: Badge Text, widget: string, required: false, default: "" }
+
+  # ── Waffle builder options (Menu section) ─────────────────────────────────
+  - name: menu
+    label: Menu Builder
+    files:
+      - name: menu
+        label: Waffle Builder Options
+        file: _data/menu.json
+        format: json
+        fields:
+          - name: base
+            label: Base Options
+            label_singular: Base
+            widget: list
+            field: { name: name, label: Option, widget: string }
+          - name: sauce
+            label: Sauce Options
+            label_singular: Sauce
+            widget: list
+            field: { name: name, label: Option, widget: string }
+          - name: topping
+            label: Topping Options
+            label_singular: Topping
+            widget: list
+            field: { name: name, label: Option, widget: string }
+          - name: fruit
+            label: Fruit Options
+            label_singular: Fruit
+            widget: list
+            field: { name: name, label: Option, widget: string }
+          - name: extra
+            label: Extra Options
+            label_singular: Extra
+            widget: list
+            field: { name: name, label: Option, widget: string }
+
+  # ── Site-wide settings ─────────────────────────────────────────────────────
+  - name: settings
+    label: Site Settings
+    files:
+      - name: settings
+        label: General Settings
+        file: _data/settings.json
+        format: json
+        fields:
+          - { name: site_title,         label: Site Title,         widget: string }
+          - { name: tagline,            label: Tagline,            widget: string }
+          - { name: instagram_handle,   label: Instagram Handle,   widget: string }
+          - { name: phone,              label: Phone Number,       widget: string, required: false }
+          - { name: email,              label: Contact Email,      widget: string, required: false }

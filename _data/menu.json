@@ -1,0 +1,38 @@
+{
+  "base": [
+    { "name": "Liège Waffle" },
+    { "name": "Brussels Waffle" },
+    { "name": "Galette (Thin Crepe)" }
+  ],
+  "sauce": [
+    { "name": "Belgian Chocolate" },
+    { "name": "Nutella" },
+    { "name": "Salted Caramel" },
+    { "name": "Speculoos" },
+    { "name": "Maple Syrup" },
+    { "name": "Peanut Butter" },
+    { "name": "Strawberry Jam" },
+    { "name": "Honey" }
+  ],
+  "topping": [
+    { "name": "Whipped Cream" },
+    { "name": "Praline" },
+    { "name": "Speculoos Crumble" },
+    { "name": "Peanut" },
+    { "name": "Sugar" },
+    { "name": "Cinnamon Sugar" }
+  ],
+  "fruit": [
+    { "name": "Strawberries" },
+    { "name": "Banana" },
+    { "name": "Mango" },
+    { "name": "Blueberries" },
+    { "name": "Raspberries" },
+    { "name": "Peach" }
+  ],
+  "extra": [
+    { "name": "Extra Sauce" },
+    { "name": "Extra Fruit" },
+    { "name": "Extra Whipped Cream" }
+  ]
+}
