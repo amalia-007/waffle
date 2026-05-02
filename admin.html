@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belgian Waffles — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:   #1C0A06;
+      --cream:  #C4A898;
+      --gold:   #D4822A;
+      --gold-dk:#b56b1e;
+      --white:  #ffffff;
+      --bg:     #F5EFE9;
+      --border: #E0D0C4;
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-ui:      'DM Sans', sans-serif;
+    }
+
+    html, body { height: 100%; font-family: var(--ff-ui); background: var(--bg); color: var(--dark); }
+
+    /* ── Login screen ─────────────────────────────────────────── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--dark);
+    }
+
+    .login-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.75rem 2.5rem 2.5rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+
+    .login-logo {
+      font-family: var(--ff-display);
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .login-title {
+      font-family: var(--ff-ui);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(28,10,6,0.5);
+      margin-bottom: 0.4rem;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 0.72rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--ff-ui);
+      font-size: 1rem;
+      color: var(--dark);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 0.5rem;
+    }
+    .login-input:focus { border-color: var(--gold); }
+
+    .login-error {
+      font-size: 0.8rem;
+      color: #c0392b;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.78rem;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--ff-ui);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-login:hover { background: var(--gold-dk); transform: translateY(-1px); }
+    .btn-login:active { transform: translateY(0); }
+
+    /* ── Dashboard ─────────────────────────────────────────────── */
+    #dashboard { display: none; min-height: 100vh; }
+
+    .dash-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+      height: 58px;
+    }
+
+    .dash-logo {
+      font-family: var(--ff-display);
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 0.45em;
+    }
+    .dash-logo-badge {
+      font-family: var(--ff-ui);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212,130,42,0.15);
+      border: 1px solid rgba(212,130,42,0.3);
+      padding: 0.2em 0.55em;
+      border-radius: 4px;
+    }
+
+    .btn-logout {
+      font-family: var(--ff-ui);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(196,168,152,0.65);
+      background: transparent;
+      border: 1px solid rgba(196,168,152,0.2);
+      border-radius: 6px;
+      padding: 0.38em 0.9em;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-logout:hover { color: var(--cream); border-color: rgba(196,168,152,0.5); }
+
+    .dash-main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    /* ── Admin section card ─────────────────────────────────────── */
+    .admin-section {
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .admin-section-header {
+      padding: 1.1rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .admin-section-title {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+
+    .admin-section-body { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* ── Location edit cards ─────────────────────────────────────── */
+    .loc-edit-card {
+      border: 1.5px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .loc-card-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .form-row { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-row--two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .form-label {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(28,10,6,0.45);
+    }
+
+    .form-input {
+      padding: 0.58rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
+      font-family: var(--ff-ui);
+      font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus { border-color: var(--gold); }
+
+    .form-textarea {
+      min-height: 72px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .form-select { appearance: none; cursor: pointer; }
+
+    /* ── Menu step ───────────────────────────────────────────────── */
+    .menu-step {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .step-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 0.7rem 1rem;
+      background: rgba(212,130,42,0.06);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .item-list {
+      list-style: none;
+      padding: 0.25rem 0;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.48rem 1rem;
+      border-bottom: 1px solid rgba(224,208,196,0.5);
+    }
+    .item-row:last-child { border-bottom: none; }
+
+    .item-text {
+      font-size: 0.875rem;
+      color: var(--dark);
+      flex: 1;
+    }
+
+    .item-empty {
+      font-size: 0.82rem;
+      color: rgba(28,10,6,0.3);
+      font-style: italic;
+      padding: 0.6rem 1rem;
+    }
+
+    .btn-del {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: rgba(28,10,6,0.3);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: 0.2em 0.45em;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      line-height: 1;
+    }
+    .btn-del:hover { color: #c0392b; border-color: rgba(192,57,43,0.25); background: rgba(192,57,43,0.06); }
+
+    .add-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      border-top: 1px solid var(--border);
+      background: rgba(245,239,233,0.6);
+    }
+
+    .add-input {
+      flex: 1;
+      padding: 0.48rem 0.7rem;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--ff-ui);
+      font-size: 0.875rem;
+      color: var(--dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .add-input:focus { border-color: var(--gold); }
+
+    .btn-add {
+      padding: 0.48rem 1rem;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--ff-ui);
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .btn-add:hover { background: var(--gold-dk); }
+
+    /* ── Site info ────────────────────────────────────────────────── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .info-grid .form-row--full { grid-column: 1 / -1; }
+
+    /* ── Save row ─────────────────────────────────────────────────── */
+    .save-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-save {
+      padding: 0.78rem 2.5rem;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--ff-ui);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-save:hover { background: var(--gold-dk); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,130,42,0.35); }
+    .btn-save:active { transform: translateY(0); }
+
+    .save-msg {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #2e7d32;
+    }
+    .save-msg.error { color: #c0392b; }
+
+    @media (max-width: 560px) {
+      .form-row--two { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .admin-section-body { padding: 1.25rem; }
+      .login-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ LOGIN SCREEN ═══════════ -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">🧇 Belgian Waffles</div>
+      <p class="login-title">Admin Access</p>
+      <form id="login-form" autocomplete="off">
+        <label class="login-label" for="pw-input">Password</label>
+        <input class="login-input" id="pw-input" type="password"
+               placeholder="Enter password" autocomplete="current-password" required />
+        <p class="login-error" id="pw-error">Incorrect password — please try again.</p>
+        <button class="btn-login" type="submit">Log In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════ DASHBOARD ═══════════ -->
+  <div id="dashboard">
+
+    <header class="dash-header">
+      <div class="dash-logo">
+        <span aria-hidden="true">🧇</span>
+        Belgian Waffles
+        <span class="dash-logo-badge">Admin</span>
+      </div>
+      <button class="btn-logout" id="logout-btn">Log Out</button>
+    </header>
+
+    <main class="dash-main">
+
+      <!-- ── Section 1: Schedule ── -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-title">Schedule &amp; Locations</div>
+        </div>
+        <div class="admin-section-body" id="schedule-form">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ── Section 2: Menu Builder ── -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-title">Menu Builder</div>
+        </div>
+        <div class="admin-section-body" id="menu-form">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ── Section 3: Site Info ── -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-title">Site Info</div>
+        </div>
+        <div class="admin-section-body">
+          <div class="info-grid">
+            <div class="form-row">
+              <label class="form-label" for="info-instagram">Instagram Handle</label>
+              <input class="form-input" id="info-instagram" type="text" placeholder="@handle" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="info-phone">Phone Number</label>
+              <input class="form-input" id="info-phone" type="tel" placeholder="0400 000 000" />
+            </div>
+            <div class="form-row form-row--full">
+              <label class="form-label" for="info-email">Contact Email</label>
+              <input class="form-input" id="info-email" type="email" placeholder="hello@example.com" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Save ── -->
+      <div class="save-row">
+        <button class="btn-save" id="save-btn" type="button">Save All Changes</button>
+        <span class="save-msg" id="save-msg"></span>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    'use strict';
+
+    const PASSWORD   = 'waffles2026';
+    const STORE_KEY  = 'bw_admin_data';
+    const AUTH_KEY   = 'bw_admin_auth';
+
+    const DEFAULTS = {
+      schedule: {
+        locations: [
+          { name: 'Hannan Street Market',  icon: '\u{1F4CD}', day_hours: 'Saturday · 8:00 am – 1:00 pm',  description: 'Kalgoorlie’s favourite weekend market. Look for the waffle truck near the main strip.', badge: '', badge_text: '' },
+          { name: 'Boulder Markets',        icon: '\u{1F4CD}', day_hours: 'Sunday · 9:00 am – 2:00 pm',    description: 'Boulder’s community market at the heart of town. Fresh off the iron every hour.', badge: '', badge_text: '' },
+          { name: 'Mining Camp Visits',     icon: '⛏️', day_hours: 'Monday to Friday · 5:30 am – 7:00 am and 4:00 pm – 5:00 pm', description: 'We visit mine sites across the Goldfields region on weekdays. Fixed daily service — no booking required for regular camp stops.', badge: 'orange', badge_text: 'By Appointment' },
+          { name: 'Diggers & Dealers 2026', icon: '\u{1F3C5}', day_hours: '3–5 August 2026 · Kalgoorlie', description: 'Australia’s premier mining conference. We’ll be there all three days — come say g’day.', badge: 'gold', badge_text: '⭐ Confirmed' }
+        ]
+      },
+      menu: {
+        base:    ['Liège Waffle', 'Brussels Waffle', 'Galette (Thin Crepe)'],
+        sauce:   ['Belgian Chocolate', 'Nutella', 'Salted Caramel', 'Speculoos', 'Maple Syrup', 'Peanut Butter', 'Strawberry Jam', 'Honey'],
+        topping: ['Whipped Cream', 'Praline', 'Speculoos Crumble', 'Peanut', 'Sugar', 'Cinnamon Sugar'],
+        fruit:   ['Strawberries', 'Banana', 'Mango', 'Blueberries', 'Raspberries', 'Peach'],
+        extra:   ['Extra Sauce', 'Extra Fruit', 'Extra Whipped Cream']
+      },
+      settings: {
+        instagram_handle: '@BelgianWafflesKal',
+        phone: '',
+        email: ''
+      }
+    };
+
+    /* ── Mutable menu state (add/delete without re-rendering whole form) ── */
+    let menuState = { base: [], sauce: [], topping: [], fruit: [], extra: [] };
+
+    /* ── Helpers ── */
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(DEFAULTS));
+      } catch (_) {
+        return JSON.parse(JSON.stringify(DEFAULTS));
+      }
+    }
+
+    /* ── Auth ── */
+    function checkAuth() {
+      if (sessionStorage.getItem(AUTH_KEY) === 'true') showDashboard();
+    }
+
+    function showDashboard() {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('dashboard').style.display    = 'block';
+      renderDashboard();
+    }
+
+    function hideDashboard() {
+      sessionStorage.removeItem(AUTH_KEY);
+      document.getElementById('dashboard').style.display    = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-error').style.display = 'none';
+    }
+
+    /* ── Render schedule form ── */
+    function renderScheduleForm(schedule) {
+      document.getElementById('schedule-form').innerHTML =
+        schedule.locations.map((loc, i) => `
+          <div class="loc-edit-card">
+            <p class="loc-card-num">Location ${i + 1}</p>
+            <input type="hidden" data-f="icon"  data-i="${i}" value="${esc(loc.icon || '')}">
+            <div class="form-row">
+              <label class="form-label" for="loc-name-${i}">Name</label>
+              <input class="form-input" id="loc-name-${i}" type="text"
+                     data-f="name" data-i="${i}" value="${esc(loc.name)}">
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="loc-dayh-${i}">Day &amp; Hours</label>
+              <input class="form-input" id="loc-dayh-${i}" type="text"
+                     data-f="day_hours" data-i="${i}" value="${esc(loc.day_hours || '')}">
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="loc-desc-${i}">Description</label>
+              <textarea class="form-input form-textarea" id="loc-desc-${i}"
+                        data-f="description" data-i="${i}">${esc(loc.description)}</textarea>
+            </div>
+            <div class="form-row--two">
+              <div class="form-row">
+                <label class="form-label" for="loc-badge-${i}">Badge Type</label>
+                <select class="form-input form-select" id="loc-badge-${i}"
+                        data-f="badge" data-i="${i}">
+                  <option value=""       ${loc.badge === ''       ? 'selected' : ''}>None</option>
+                  <option value="orange" ${loc.badge === 'orange' ? 'selected' : ''}>Orange</option>
+                  <option value="gold"   ${loc.badge === 'gold'   ? 'selected' : ''}>Gold</option>
+                  <option value="green"  ${loc.badge === 'green'  ? 'selected' : ''}>Green</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="loc-btxt-${i}">Badge Text</label>
+                <input class="form-input" id="loc-btxt-${i}" type="text"
+                       data-f="badge_text" data-i="${i}" value="${esc(loc.badge_text || '')}">
+              </div>
+            </div>
+          </div>`).join('');
+    }
+
+    /* ── Render menu form ── */
+    const MENU_STEPS = [
+      { key: 'base',    label: 'Step 1 · Base' },
+      { key: 'sauce',   label: 'Step 2 · Sauce' },
+      { key: 'topping', label: 'Step 3 · Topping' },
+      { key: 'fruit',   label: 'Step 4 · Fruit' },
+      { key: 'extra',   label: 'Step 5 · Extra' }
+    ];
+
+    function renderMenuForm(menu) {
+      /* Seed mutable state */
+      MENU_STEPS.forEach(s => {
+        menuState[s.key] = (menu[s.key] || []).map(item =>
+          typeof item === 'string' ? item : item.name
+        );
+      });
+
+      document.getElementById('menu-form').innerHTML = MENU_STEPS.map(s => `
+        <div class="menu-step">
+          <p class="step-title">${s.label}</p>
+          <ul class="item-list" id="list-${s.key}"></ul>
+          <div class="add-row">
+            <input class="add-input" id="add-${s.key}" type="text"
+                   data-step="${s.key}" placeholder="New option…">
+            <button class="btn-add" data-step="${s.key}" type="button">Add</button>
+          </div>
+        </div>`).join('');
+
+      /* Populate lists */
+      MENU_STEPS.forEach(s => refreshMenuList(s.key));
+
+      /* Event delegation — delete */
+      document.getElementById('menu-form').addEventListener('click', e => {
+        const del = e.target.closest('.btn-del');
+        if (del) {
+          menuState[del.dataset.step].splice(Number(del.dataset.idx), 1);
+          refreshMenuList(del.dataset.step);
+          return;
+        }
+        const add = e.target.closest('.btn-add');
+        if (add) addItem(add.dataset.step);
+      });
+
+      /* Enter key on add inputs */
+      document.getElementById('menu-form').addEventListener('keydown', e => {
+        if (e.key === 'Enter' && e.target.classList.contains('add-input')) {
+          e.preventDefault();
+          addItem(e.target.dataset.step);
+        }
+      });
+    }
+
+    function refreshMenuList(step) {
+      const list = document.getElementById('list-' + step);
+      if (!list) return;
+      const items = menuState[step];
+      if (items.length === 0) {
+        list.innerHTML = '<li class="item-empty">No items yet</li>';
+        return;
+      }
+      list.innerHTML = items.map((item, i) => `
+        <li class="item-row">
+          <span class="item-text">${esc(item)}</span>
+          <button class="btn-del" type="button"
+                  data-step="${step}" data-idx="${i}"
+                  aria-label="Remove ${esc(item)}">✕</button>
+        </li>`).join('');
+    }
+
+    function addItem(step) {
+      const input = document.getElementById('add-' + step);
+      const val   = input.value.trim();
+      if (!val) return;
+      menuState[step].push(val);
+      input.value = '';
+      refreshMenuList(step);
+      input.focus();
+    }
+
+    /* ── Render settings form ── */
+    function renderSettingsForm(settings) {
+      document.getElementById('info-instagram').value = settings.instagram_handle || '';
+      document.getElementById('info-phone').value     = settings.phone            || '';
+      document.getElementById('info-email').value     = settings.email            || '';
+    }
+
+    /* ── Render all ── */
+    function renderDashboard() {
+      const data = loadData();
+      renderScheduleForm(data.schedule);
+      renderMenuForm(data.menu);
+      renderSettingsForm(data.settings);
+    }
+
+    /* ── Read schedule form ── */
+    function readScheduleForm() {
+      const saved = loadData();
+      return {
+        locations: saved.schedule.locations.map((loc, i) => {
+          const get = field => {
+            const el = document.querySelector(`[data-f="${field}"][data-i="${i}"]`);
+            return el ? el.value : (loc[field] || '');
+          };
+          return {
+            name:        get('name'),
+            icon:        get('icon'),
+            day_hours:   get('day_hours'),
+            description: get('description'),
+            badge:       get('badge'),
+            badge_text:  get('badge_text')
+          };
+        })
+      };
+    }
+
+    /* ── Save all ── */
+    function saveAll() {
+      const data = {
+        schedule: readScheduleForm(),
+        menu:     { base: [...menuState.base], sauce: [...menuState.sauce], topping: [...menuState.topping], fruit: [...menuState.fruit], extra: [...menuState.extra] },
+        settings: {
+          instagram_handle: document.getElementById('info-instagram').value.trim(),
+          phone:            document.getElementById('info-phone').value.trim(),
+          email:            document.getElementById('info-email').value.trim()
+        }
+      };
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+
+      const msg = document.getElementById('save-msg');
+      msg.textContent = '✓ Saved — changes are live on the site';
+      msg.className   = 'save-msg';
+      setTimeout(() => { msg.textContent = ''; }, 4000);
+    }
+
+    /* ── Wire up event listeners ── */
+    document.getElementById('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const pw = document.getElementById('pw-input').value;
+      if (pw === PASSWORD) {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+        document.getElementById('pw-error').style.display = 'none';
+        showDashboard();
+      } else {
+        document.getElementById('pw-error').style.display = 'block';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', hideDashboard);
+    document.getElementById('save-btn').addEventListener('click', saveAll);
+
+    /* ── Init ── */
+    checkAuth();
+  </script>
+
+</body>
+</html>

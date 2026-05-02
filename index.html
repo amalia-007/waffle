@@ -2142,6 +2142,7 @@
       <div class="footer-bar">
         <p>© 2026 Belgian Waffles Kalgoorlie. All rights reserved.</p>
         <p>Made with 🧇 in the Goldfields, WA</p>
+        <p style="margin-top:0.5rem;font-size:0.65rem;opacity:0.4;"><a href="/admin.html" style="color:inherit;text-decoration:none;">Admin</a></p>
       </div>
 
     </div><!-- /container -->
@@ -2290,7 +2291,7 @@
   <div class="loc-card-top">
     <h3 class="loc-name">${loc.name}</h3>${badgeHtml ? '\n    ' + badgeHtml : ''}
   </div>
-  <p class="loc-time">${loc.icon} ${loc.day} · ${loc.hours}</p>
+  <p class="loc-time">${loc.day_hours ? (loc.icon + ' ' + loc.day_hours).trim() : loc.icon + ' ' + loc.day + ' \xb7 ' + loc.hours}</p>
   <p class="loc-desc">${loc.description}</p>
 </div>`;
         }).join('\n');
@@ -2333,12 +2334,23 @@
         }
       }
 
-      /* Render defaults instantly (no flash), then overlay live CMS data */
+      function getAdminData() {
+        try { return JSON.parse(localStorage.getItem('bw_admin_data') || 'null'); } catch (_) { return null; }
+      }
+
+      /* Render defaults instantly (no flash), then overlay admin or CMS data */
       renderSchedule(DEFAULT_SCHEDULE);
       renderMenu(DEFAULT_MENU);
       initChips();
       applySettings(DEFAULT_SETTINGS);
-      loadCMSData();
+      const adminData = getAdminData();
+      if (adminData) {
+        if (adminData.schedule) renderSchedule(adminData.schedule);
+        if (adminData.menu) { renderMenu(adminData.menu); STEP_ORDER.forEach(k => { builderState[k] = null; }); initChips(); renderPreview(); }
+        if (adminData.settings) applySettings(adminData.settings);
+      } else {
+        loadCMSData();
+      }
 
       /* ── Event type cards → sync to form select ── */
       const eventCards    = document.querySelectorAll('.event-card[data-type]');
