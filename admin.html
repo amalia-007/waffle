@@ -384,7 +384,17 @@
     }
     .save-msg.error { color: #c0392b; }
 
+    /* ── Recipe section ── */
+    .recipe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .recipe-col-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.5rem; }
+    .recipe-textarea { width: 100%; font-family: var(--ff-ui); font-size: 0.88rem; color: var(--dark); background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; line-height: 1.7; resize: vertical; min-height: 180px; }
+    .recipe-textarea:focus { outline: none; border-color: var(--gold); }
+    .recipe-tip { background: rgba(212,130,42,0.08); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 0.6rem 0.9rem; font-size: 0.82rem; line-height: 1.6; }
+    .recipe-portions { font-size: 0.82rem; color: var(--dark); opacity: 0.6; margin-bottom: 0.5rem; }
+
     @media (max-width: 560px) {
+      .recipe-grid { grid-template-columns: 1fr; }
+
       .form-row--two { grid-template-columns: 1fr; }
       .info-grid { grid-template-columns: 1fr; }
       .admin-section-body { padding: 1.25rem; }
@@ -466,6 +476,16 @@
         </div>
       </div>
 
+      <!-- ── Section 4: Recipe ── -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-title">🧇 Recette — Gaufres de Liège</div>
+        </div>
+        <div class="admin-section-body" id="recipe-form">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
       <!-- ── Save ── -->
       <div class="save-row">
         <button class="btn-save" id="save-btn" type="button">Save All Changes</button>
@@ -502,6 +522,35 @@
         instagram_handle: '@BelgianWafflesKal',
         phone: '',
         email: ''
+      },
+      recipe: {
+        portions: '8 à 10 gaufres',
+        ingredients: [
+          '300 g de farine',
+          '125 g de beurre mou (pas fondu)',
+          '2 oeufs',
+          '100 ml de lait tiède',
+          '7 g de levure sèche (ou 20 g de fraîche)',
+          '1 c. à café de vanille',
+          '1 pincée de sel',
+          '150 g de sucre perlé'
+        ],
+        steps: [
+          'Dissoudre la levure dans le lait tiède, laisser 5 min',
+          'Mélanger farine + sel + oeufs + vanille',
+          'Ajouter le mélange lait/levure, pétrir 5 min',
+          'Incorporer le beurre mou en morceaux, pétrir jusqu\'à une pâte lisse et souple',
+          'Couvrir, laisser lever 1h30 à température ambiante',
+          'Ajouter le sucre perlé, incorporer délicatement à la main',
+          'Diviser en boules de ~100 g, laisser reposer 15 min',
+          'Cuire au gaufrier bien chaud, 3 à 4 min'
+        ],
+        tips: [
+          'Sucre perlé — il caramélise et crée la croûte dorée caractéristique',
+          'Pas de levure chimique — uniquement de la levure de boulanger pour la texture briochée',
+          'Beurre mou pas fondu — donne une mâche moelleuse à l\'intérieur'
+        ],
+        notes: ''
       }
     };
 
@@ -667,6 +716,31 @@
       input.focus();
     }
 
+    /* ── Render recipe form ── */
+    function renderRecipeForm(recipe) {
+      document.getElementById('recipe-form').innerHTML = `
+        <p class="recipe-portions">Pour <strong>${esc(recipe.portions)}</strong></p>
+        <div class="recipe-grid">
+          <div>
+            <p class="recipe-col-title">Ingrédients</p>
+            <textarea class="recipe-textarea" id="recipe-ingredients" rows="10">${esc(recipe.ingredients.join('\n'))}</textarea>
+          </div>
+          <div>
+            <p class="recipe-col-title">Préparation</p>
+            <textarea class="recipe-textarea" id="recipe-steps" rows="10">${esc(recipe.steps.join('\n'))}</textarea>
+          </div>
+        </div>
+        <div>
+          <p class="recipe-col-title" style="margin-top:1rem;">Secrets &amp; Astuces</p>
+          ${recipe.tips.map(t => `<div class="recipe-tip">${esc(t)}</div>`).join('')}
+        </div>
+        <div style="margin-top:1rem;">
+          <p class="recipe-col-title">Notes personnelles</p>
+          <textarea class="recipe-textarea" id="recipe-notes" rows="3" placeholder="Vos notes, variantes, ajustements...">${esc(recipe.notes || '')}</textarea>
+        </div>
+      `;
+    }
+
     /* ── Render settings form ── */
     function renderSettingsForm(settings) {
       document.getElementById('info-instagram').value = settings.instagram_handle || '';
@@ -680,6 +754,7 @@
       renderScheduleForm(data.schedule);
       renderMenuForm(data.menu);
       renderSettingsForm(data.settings);
+      renderRecipeForm(data.recipe || DEFAULTS.recipe);
     }
 
     /* ── Read schedule form ── */
@@ -712,6 +787,13 @@
           instagram_handle: document.getElementById('info-instagram').value.trim(),
           phone:            document.getElementById('info-phone').value.trim(),
           email:            document.getElementById('info-email').value.trim()
+        },
+        recipe: {
+          portions:    (loadData().recipe || DEFAULTS.recipe).portions,
+          ingredients: (document.getElementById('recipe-ingredients').value || '').split('\n').map(s => s.trim()).filter(Boolean),
+          steps:       (document.getElementById('recipe-steps').value || '').split('\n').map(s => s.trim()).filter(Boolean),
+          tips:        (loadData().recipe || DEFAULTS.recipe).tips,
+          notes:       (document.getElementById('recipe-notes').value || '').trim()
         }
       };
       localStorage.setItem(STORE_KEY, JSON.stringify(data));
